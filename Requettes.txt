@@ -1,0 +1,53 @@
+SELECT AVG(montant_TTC) FROM commande  ( montant moyen des commandes apres remises)
+
+
+
+Select nom From article 
+where quantite<reaprovisionnement   (Identifier les produits sous le seuil de réapprovisionnement)
+
+
+SELECT sum (( prix_article_HT*quantite*taux_TVA/100)+(prix_article_HT*quantite)) as valeur_achat_du_stock
+from article		(Calculer la valeur commerciale du stock)
+
+
+
+SELECT sum ( prix_article_HT*quantite)as valeur_commerciale_du_stock
+from article				(calculer la valeur d'achat du stock)
+
+
+Select month (date_emission) as numero_mois ,montant_TTC
+from commande
+where MONTH (date_emission) = 10          (Calculer le chiffre d’affaires sur un mois en particulier)
+
+
+SELECT SUM(montant_TTC) as montant_achat_total
+FROM commande
+inner join utilisateur on utilisateur.id_utilisateur = commande.id_utilisateur
+where nom = 'petit' and prenom = 'axel'    (montant total des achats pour un client)
+
+
+SELECT TOP 10 [nom], SUM(quantitee) Qte 
+FROM article
+inner join gerer on gerer.reference_article = article.reference_article
+GROUP BY [nom] 
+ORDER BY Qte DESC             (10 articles les plus vendus)
+
+SELECT TOP 10 [nom], SUM(quantitee) Qte 
+FROM article
+inner join gerer on gerer.reference_article = article.reference_article
+GROUP BY [nom] 
+ORDER BY Qte                   (10 articles les moins vendus)
+
+
+SELECT sum (( prix_article_HT*quantite*taux TVA (a remplir)/100)+(prix_article_HT*quantite)) as valeur_achat_du_stock
+from article		(requette pour la modification du taux de TVA)	
+
+SELECT sum (( prix_article_HT*quantite*taux_tva/100 + prix_article_HT*quantite ) * marge commerciale (a remplir)/100+( prix_article_HT*quantite*(taux_TVA/100) + prix_article_HT*quantite ))  as valeur_achat_du_stock
+from article					(requette pour la modification de la marge commerciale)	
+
+
+SELECT sum (  prix_article_HT*quantite*taux_TVA/100 +prix_article_HT*quantite )* démarque inconnue (à remplir en %)/100+ (prix_article_HT*quantite*(taux_TVA/100) +prix_article_HT*quantite)  as valeur_achat_du_stock
+from article				(requette pour la modification de la démarque commerciale)	
+
+SELECT sum ((prix_article_HT*quantite*0/100 +prix_article_HT*quantite )-(  prix_article_HT*quantite*0/100 +prix_article_HT*quantite ) *remise (à remplir)/100    ) as valeur_achat_du_stock
+from article				(requette pour la modification de la remise commerciale)	
